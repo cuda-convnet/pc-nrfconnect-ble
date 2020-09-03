@@ -50,7 +50,7 @@ import DiscoveredDevice from '../components/DiscoveredDevice';
 import DiscoveryButton from '../components/DiscoveryButton';
 import TextInput from '../components/input/TextInput';
 import Spinner from '../components/Spinner';
-import { DiscoveryOptions } from '../reducers/discoveryReducer';
+import { DiscoveryOptions, getFilterRegexp } from '../reducers/discoveryReducer';
 import withHotkey from '../utils/withHotkey';
 
 const matchesFilter = filterRegexp => (
@@ -113,6 +113,7 @@ class DiscoveredDevices extends React.PureComponent {
         } = this.props;
 
         this.discoveryOptions = discoveryOptions.toJS();
+        this.discoveryOptions.filterString = getFilterRegexp();
 
         const dirIcon = discoveryOptions.expanded ? 'menu-down' : 'menu-right';
 
@@ -131,7 +132,7 @@ class DiscoveredDevices extends React.PureComponent {
                     title="Filter list by device name or address"
                     label="Filter:"
                     className="adv-value"
-                    value={discoveryOptions.filterString}
+                    value={this.discoveryOptions.filterString}
                     onChange={this.handleFilterChange}
                     labelClassName=""
                     wrapperClassName=""
@@ -223,6 +224,8 @@ function mapStateToProps(state) {
         scanning = selectedAdapter.state.scanning || false;
         adapterAvailable = selectedAdapter.state.available || false;
     }
+
+    // discovery.options.filterString = getFilterRegex(); // immutable
 
     return {
         discoveredDevices: discovery.devices,
