@@ -113,8 +113,6 @@ class DiscoveredDevices extends React.PureComponent {
         } = this.props;
 
         this.discoveryOptions = discoveryOptions.toJS();
-        // alternative: remember
-        this.discoveryOptions.filterString = getFilterRegexp();
 
         const dirIcon = discoveryOptions.expanded ? 'menu-down' : 'menu-right';
 
@@ -225,8 +223,6 @@ function mapStateToProps(state) {
         scanning = selectedAdapter.state.scanning || false;
         adapterAvailable = selectedAdapter.state.available || false;
     }
-
-    // discovery.options.filterString = getFilterRegex(); // immutable
 
     return {
         discoveredDevices: discovery.devices,
