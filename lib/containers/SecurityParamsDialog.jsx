@@ -45,6 +45,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { setSecParams } from '../common/Persistentstore';
 
 import * as SecurityActions from '../actions/securityActions';
 import SecurityParamsControls from '../components/SecurityParamsControls';
@@ -65,9 +66,8 @@ class SecurityParamsDialog extends React.PureComponent {
             setSecurityParams,
             hideSecurityParamsDialog,
         } = this.props;
-
         setSecurityParams(this.secParams);
-
+        setSecParams(this.secParams);
         hideSecurityParamsDialog();
     }
 
